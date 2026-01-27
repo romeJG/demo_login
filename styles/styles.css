@@ -1,0 +1,39 @@
+/* Flex */
+.flex {
+	display: flex;
+}
+
+.flex-column {
+	flex-direction: column;
+}
+
+.flex-row {
+	flex-direction: row;
+}
+
+/* Sizes */
+.w-100 {
+	width: 100%;
+}
+
+.vw-100 {
+	width: 100vw;
+}
+
+.vh-100 {
+	height: 100vh;
+}
+
+/* Containers */
+.login-container {
+	width: 200px;
+}
+
+/* Colors */
+.blue {
+	background-color: blue;
+}
+
+.red {
+	background-color: red;
+}
