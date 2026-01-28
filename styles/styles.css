@@ -37,3 +37,40 @@
 .red {
 	background-color: red;
 }
+
+.lit {
+	background-color: cyan;
+}
+
+/* Main horizontal layout */
+.first {
+	display: flex;
+	flex-direction: row;
+	/* Aligns columns side-by-side */
+	height: 100vh;
+	/* Set a height for visibility */
+	gap: 10px;
+	/* Adds space between columns */
+}
+
+/* Make both columns take up equal space */
+.col {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	/* Stacks the two rows vertically */
+	align-items: center;
+	/* Optional: center text vertically */
+	justify-content: center;
+	/* Optional: center text horizontally */
+}
+
+/* Make the internal rows fill the column height */
+.row {
+	height: 50px;
+	display: flex;
+	align-items: center;
+	/* Optional: center text vertically */
+	justify-content: center;
+	/* Optional: center text horizontally */
+}

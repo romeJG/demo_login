@@ -3,25 +3,26 @@ include '../db/db_con.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$name = "";
-	$email = "";
-	$password = password_hash($_POST['passwordInput'], PASSWORD_BCRYPT);
+	$name = trim($_POST['nameInput']);
+	$email = trim($_POST['emailInput']);
+	$pass = trim($_POST['passwordInput']);
+	$password = password_hash($pass, PASSWORD_BCRYPT);
 
-	if (empty($name) || empty($email) || empty($_POST['passwordInput'])) {
-		header('Location: ../register.php?register=failed');
+	if (empty($name) || empty($email) || empty($pass)) {
+		header('Location: ../pages/register.php?register=inc');
 		exit();
 	}
 
 	$stmt = $pdo->prepare('INSERT INTO users (name, email, password) VALUES (?, ?, ?)');
 
 	if ($stmt->execute([$name, $email, $password])) {
-		header('Location: ../register.php?register=success');
+		header('Location: ../pages/register.php?register=success');
 		exit();
 	} else {
-		header('Location: ../register.php?register=failed');
+		header('Location: ../pages/register.php?register=failed');
 		exit();
 	}
 } else {
-	header('Location: ../register.php');
+	header('Location: ../pages/register.php');
 	exit();
 }
