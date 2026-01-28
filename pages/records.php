@@ -8,43 +8,33 @@ require '../components/header.php';
 require "../db/db_con.php" ?>
 
 <body>
-    <div class="row">
-        This is Records
-    </div>
-    <div class="row">
-        <a href="dashboard.php">Dashboard</a>
-    </div>
-    <div class="row">
-        <br><br><br><br>
-    </div>
-    <form action="../backend/record_process.php" method="POST">
-        <div class="row">
-            <?php include '../components/table.php' ?>
-        </div>
-        <div class="row">
+    <div class="flex-wrapper">
+        <div class="row row-split">
             <div class="col">
-                <button id="cb" name="cb" class="lit" type="button" onclick="create()">
-                    Create
-                </button>
-            </div>
-            <!-- 
-            <div class="col">
-                <button id="ub" name="ub" class="lit" type="button" onclick="update()">
-                    Update
-                </button>
+                This is Records
             </div>
             <div class="col">
-                <button id="db" name="db" class="lit" type="button" onclick="del()">
-                    Delete
-                </button>
-            </div> 
-            -->
+                <a href="dashboard.php">Dashboard</a>
+            </div>
         </div>
-        <div class="col">
-            <div id="c0"> </div>
-        </div>
-    </form>
-
+        <form action="../backend/record_process.php" method="POST">
+            <div class="row row-single">
+                <div class="col">
+                    <?php include '../components/table.php' ?>
+                </div>
+            </div>
+            <div class="row row-split">
+                <div class="col">
+                    <button id="cb" name="cb" class="lit" type="button" onclick="create()">
+                        Create
+                    </button>
+                </div>
+                <div class="col">
+                    <div id="c0"> </div>
+                </div>
+            </div>
+        </form>
+    </div>
     <script src="../script/records.js"></script>
     <?php include '../components/footer.php' ?>
 </body>

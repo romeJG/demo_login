@@ -67,10 +67,19 @@
 
 /* Make the internal rows fill the column height */
 .row {
-	height: 50px;
+	min-height: 50px;
+	gap: 20px;
 	display: flex;
 	align-items: center;
 	/* Optional: center text vertically */
 	justify-content: center;
 	/* Optional: center text horizontally */
+}
+
+.flex-wrapper {
+	display: flex;
+	flex-direction: column;
+	/* Stack rows vertically */
+	gap: 15px;
+	padding: 10px;
 }

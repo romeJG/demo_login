@@ -21,7 +21,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && ((isset($_POST['cb'])) || (isset(
             exit();
         }
     } else if (isset($_POST['ub'])) {
-        $id = trim($_POST["id"]);
+        $id = trim($_POST['ub']);
         $title = trim($_POST['title']);
         $des = trim($_POST['desc']);
         $name = trim($_SESSION['name']);
