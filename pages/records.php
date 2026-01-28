@@ -44,7 +44,7 @@ require "../db/db_con.php" ?>
         </form>
     </div>
 
-    <script src="../script/login.js"></script>
+    <script src="../script/records.js"></script>
     <?php include '../components/footer.php' ?>
 </body>
 
