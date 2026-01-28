@@ -10,7 +10,7 @@ function create() {
 		});
 }
 
-function update() { // 2 
+function update() {
 	fetch('../components/update-form.php')
 		.then(response => response.text())
 		.then(html => {

@@ -38,7 +38,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && ((isset($_POST['cb'])) || (isset(
             exit();
         }
     } else if (isset($_POST['db'])) {
-        $id = trim($_POST["id"]);
+        $id = trim($_POST['db']);
         if (empty($id)) {
             header('Location: ../pages/records.php?delete=inc');
             exit();
