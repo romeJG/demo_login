@@ -3,6 +3,7 @@
 <?php $pageTitle = "Register" ?>
 <?php require "../components/header.php" ?>
 <?php require "../db/db_con.php" ?>
+<!-- somechanges -->
 
 <body>
 	<form action="../backend/register_process.php" method="POST">
