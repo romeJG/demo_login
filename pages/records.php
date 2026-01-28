@@ -36,11 +36,7 @@ require "../db/db_con.php" ?>
     </div>
     <div class="col">
         <form action="../backend/record_process.php" method="POST">
-            <div class="row" id="c0"> </div>
-            <div class="row" id="c1"> </div>
-            <div class="row" id="c2"> </div>
-            <div class="row" id="c3"> </div>
-            <div class="row" id="c4"> </div>
+            <div id="c0"> </div>
         </form>
     </div>
 
