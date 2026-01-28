@@ -3,9 +3,10 @@ include '../db/db_con.php';
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	$email = $_POST['emailInput'];
-	if (empty($email) || empty($_POST['passwordInput'])) {
-		header('Location: ../index.php?login=failed');
+	$email = trim($_POST['emailInput']);
+	$password = trim($_POST['passwordInput']);
+	if (empty($email) || empty($password)) {
+		header('Location: ../pages/index.php?login=inc');
 		exit();
 	}
 
@@ -13,17 +14,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	if ($stmt->execute([$email])) {
 		$user = $stmt->fetch();
-		if ($user && password_verify($_POST['passwordInput'], $user['password'])) {
+		if ($user && password_verify($password, $user['password'])) {
 			session_start();
 			$_SESSION['user_id'] = $user['id'];
-			header('Location: ../dashboard.php');
-			exit();
-		} else {
-			header('Location: ../index.php?login=failed');
+			$_SESSION['name'] = $user['email'];
+			header('Location: ../pages/dashboard.php');
 			exit();
 		}
+		header('Location: ../pages/index.php?login=failed');
+		exit();
+
 	} else {
-		header('Location: ../index.php?login=failed');
+		header('Location: ../pages/index.php');
 		exit();
 	}
 }
