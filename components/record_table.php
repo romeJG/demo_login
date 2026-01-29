@@ -1,6 +1,6 @@
 <?php
 
-
+require '../components/verify_sesstion.php';
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -11,15 +11,15 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 $sql = "SELECT id, record_title, descriptions, recorder_name, created_at FROM records";
 $result = $conn->query($sql);
 
-echo "<table border='1' cellpadding='10'>";
-echo "<tr>
+echo "<table border='1' cellpadding='10' id='inputTable'>";
+echo "<thead> <tr>
         <th>Button</th>
         <th>ID</th>
         <th>Title</th>
         <th>Descriptions</th>
         <th>Name</th>
         <th>Time</th>
-      </tr>";
+      </thead> </tr> <tbody>";
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
@@ -39,6 +39,6 @@ if ($result->num_rows > 0) {
 } else {
     echo "<tr><td colspan='6'>No records found</td></tr>";
 }
-echo "</table>";
+echo "</tbody> </table>";
 
 $conn->close();

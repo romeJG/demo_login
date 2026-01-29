@@ -3,7 +3,7 @@
 <?php
 session_start();
 require '../components/verify_sesstion.php';
-$pageTitle = "Records";
+$pageTitle = "Deleted Records";
 require '../components/header.php';
 require "../db/db_con.php" ?>
 <style>
@@ -17,29 +17,19 @@ require "../db/db_con.php" ?>
     <div class="flex-wrapper">
         <div class="row">
             <div class="col">
-                This is Records
+                This is Deleted Records
             </div>
             <div class="col">
                 <a href="dashboard.php">Dashboard</a>
             </div>
             <div class="col">
-                <a href="deleted.php">Deleted Records</a>
+                <a href="records.php">Records</a>
             </div>
         </div>
-        <form action="../backend/record_process.php" method="POST">
+        <form action="../backend/restore_process.php" method="POST">
             <div class="row">
                 <div class="col">
-                    <?php include '../components/record_table.php' ?>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <button id="cb" name="cb" class="lit" type="button" onclick="create()">
-                        Create
-                    </button>
-                </div>
-                <div class="col">
-                    <div id="c0"> </div>
+                    <?php include '../components/deleted_table.php' ?>
                 </div>
             </div>
         </form>
