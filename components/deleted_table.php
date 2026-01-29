@@ -19,6 +19,7 @@ echo "<thead> <tr>
         <th>Title</th>
         <th>Descriptions</th>
         <th>Name</th>
+        <th>Recorder ID</th>
         <th>Time Created</th>
         <th>Time Deleted</th>
       </thead> </tr> <tbody>";
@@ -27,21 +28,21 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
         echo "<td> 
-        <button id=\"ub\" name=\"ub\" class=\"lit\" type=\"button\" 
-        onclick=\"update('{$row['id']}', '{$row['record_title']}', '{$row['descriptions']}')\"> Update </button>
-        <button id=\"db\" name=\"db\" class=\"lit\" type=\"submit\" value=\"{$row['id']}\"> Delete </button>
-        </td>"; // new buttons 
+        <button id=\"rb\" name=\"rb\" class=\"lit\" type=\"submit\" 
+        value=\"{$row['id']}\"> Restore </button>
+        </td>";
         echo "<td>" . htmlspecialchars($row["id"]) . "</td>";
         echo "<td>" . htmlspecialchars($row["prev_id"]) . "</td>";
         echo "<td>" . htmlspecialchars($row["record_title"]) . "</td>";
         echo "<td>" . htmlspecialchars($row["descriptions"]) . "</td>";
         echo "<td>" . htmlspecialchars($row["recorder_name"]) . "</td>";
+        echo "<td>" . htmlspecialchars($row["recorder_id"]) . "</td>";
         echo "<td>" . htmlspecialchars($row["created_at"]) . "</td>";
         echo "<td>" . htmlspecialchars($row["deleted_at"]) . "</td>";
         echo "</tr>";
     }
 } else {
-    echo "<tr><td colspan='8'>No records found</td></tr>";
+    echo "<tr><td colspan='9'>No Records Found</td></tr>";
 }
 echo "</tbody> </table>";
 

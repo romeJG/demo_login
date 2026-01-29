@@ -34,7 +34,7 @@ require "../db/db_con.php" ?>
             </div>
             <div class="row">
                 <div class="col">
-                    <button id="cb" name="cb" class="lit" type="button" onclick="create()">
+                    <button id="cb" name="cb" class="lit" type="button" onclick="add()">
                         Create
                     </button>
                 </div>

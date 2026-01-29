@@ -16,15 +16,16 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && ((isset($_POST['cb'])) || (isset(
         $title = trim($_POST['title']);
         $des = trim($_POST['desc']);
         $name = trim($_SESSION['name']);
+        $recid = trim($_SESSION['user_id']);
         // if at least one field is empty, return to records page with query incomplete in field create
-        if (empty($title) || empty($des) || empty($name)) {
+        if (empty($title) || empty($des) || empty($name) || empty($recid)) {
             header('Location: ../pages/records.php?create=inc');
             exit();
         }
         // prepare pdo to insert into database with sql query 
-        $stmt = $pdo->prepare('INSERT INTO records (record_title, descriptions, recorder_name) VALUES (?, ?, ?)');
+        $stmt = $pdo->prepare('INSERT INTO records (record_title, descriptions, recorder_name, recorder_id) VALUES (?, ?, ?, ?)');
         // check if title, description, and recorder username were inserted into database 
-        if ($stmt->execute([$title, $des, $name])) {
+        if ($stmt->execute([$title, $des, $name, $recid])) {
             // successful insertion and return to records page with query success in field create
             header('Location: ../pages/records.php?create=success');
             exit();
@@ -44,15 +45,16 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && ((isset($_POST['cb'])) || (isset(
         $title = trim($_POST['title']);
         $des = trim($_POST['desc']);
         $name = trim($_SESSION['name']);
+        $recid = trim($_SESSION['user_id']);
         // if any of the field is empty, return to records page with query incomplete in field update
-        if (empty($id) || empty($title) || empty($des) || empty($name)) {
+        if (empty($id) || empty($title) || empty($des) || empty($name) || empty($recid)) {
             header('Location: ../pages/records.php?update=inc');
             exit();
         }
         // prepare pdo to update specific row of database with sql query and provided id 
-        $stmt = $pdo->prepare('UPDATE records SET record_title = ?, descriptions = ?, recorder_name = ? WHERE id = ?');
+        $stmt = $pdo->prepare('UPDATE records SET record_title = ?, descriptions = ?, recorder_name = ?, recorder_id = ? WHERE id = ?');
         // check if title, description, recorder username, and id were injected in the sql query 
-        if ($stmt->execute([$title, $des, $name, $id])) {
+        if ($stmt->execute([$title, $des, $name, $recid, $id])) {
             // successful update and return to records page with query success in field update
             header('Location: ../pages/records.php?update=success');
             exit();
@@ -72,6 +74,7 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && ((isset($_POST['cb'])) || (isset(
             header('Location: ../pages/records.php?delete=inc');
             exit();
         }
+        // gets the current data of that row 
         $stmt = $pdo->prepare('SELECT * FROM records WHERE id = ?');
         if ($stmt->execute([$id])) {
             // to insert new data 
@@ -79,11 +82,12 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && ((isset($_POST['cb'])) || (isset(
             $title = trim($recorded['record_title']);
             $desc = trim($recorded['descriptions']);
             $name = trim($recorded['recorder_name']);
+            $recid = trim($recorded['recorder_id']);
             $creation = trim($recorded['created_at']);
 
-            $stmt = $pdo->prepare('INSERT INTO deleted (prev_id, record_title, descriptions, recorder_name, created_at) VALUES (?, ?, ?, ?, ?)');
-            // success in adding data to new table 
-            if ($stmt->execute([$id, $title, $desc, $name, $creation])) {
+            $stmt = $pdo->prepare('INSERT INTO deleted (prev_id, record_title, descriptions, recorder_name, recorder_id, created_at) VALUES (?, ?, ?, ?, ?, ?)');
+            // success in adding data to deleted table 
+            if ($stmt->execute([$id, $title, $desc, $name, $recid, $creation])) {
                 // to delete from records
                 $stmt = $pdo->prepare('DELETE FROM records WHERE id = ?');
                 // check if sql query is successfully executed
