@@ -1,14 +1,9 @@
 <?php
 
 require '../components/verify_sesstion.php';
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "login_demo";
+require "../db/db_tab.php";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-$perpage = 3;
+$perpage = 5;
 if (isset($_GET['page']) && is_numeric($_GET['page'])) {
     $current_page = (int) $_GET['page'];
 } else {
@@ -24,8 +19,11 @@ if (($current_page > $total_pages) || ($current_page < 1)) {
 }
 $start = ($current_page - 1) * $perpage;
 
-$sql = "SELECT id, record_title, descriptions, recorder_name, recorder_id, created_at FROM records LIMIT $start, $perpage";
-$result = $conn->query($sql);
+$sql = "SELECT id, record_title, descriptions, recorder_name, recorder_id, created_at FROM records LIMIT ?, ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("ii", $start, $perpage);
+$stmt->execute();
+$result = $stmt->get_result();
 
 echo "<table border='1' cellpadding='10' id='rec'>";
 echo "<thead> <tr>

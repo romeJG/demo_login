@@ -88,21 +88,3 @@ function findID(id) {
 	}
 	return -1;
 }
-
-function create() {
-	fetch('../components/create-form.php')
-		.then(response => response.text())
-		.then(html => {
-			document.getElementById("c0").innerHTML = html;
-		});
-}
-
-function update(id, tt, desc) {
-	fetch('../components/update-form.php?update=' + id + '&title=' + tt + '&desc=' + desc)
-		.then(response => response.text())
-		.then(html => {
-			document.getElementById("c0").innerHTML = html;
-		});
-}
-
-
