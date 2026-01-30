@@ -14,11 +14,15 @@ if (isset($_GET['page']) && is_numeric($_GET['page'])) {
 } else {
     $current_page = 1;
 }
-$start = ($current_page - 1) * $perpage;
 $sql = "SELECT COUNT(*) FROM deleted";
 $results = $conn->query($sql);
 $total_records = mysqli_fetch_array($results)[0];
 $total_pages = ceil($total_records / $perpage);
+// if out of bounds 
+if (($current_page > $total_pages) || ($current_page < 1)) {
+    $current_page = 1;
+}
+$start = ($current_page - 1) * $perpage;
 
 $sql = "SELECT id, prev_id, record_title, descriptions, recorder_name, recorder_id, created_at, deleted_at FROM deleted LIMIT $start, $perpage";
 $result = $conn->query($sql);

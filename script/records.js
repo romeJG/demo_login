@@ -9,7 +9,7 @@ let existbtn = 0;
 function add() {
 	let tableBody = document.getElementById("rec");
 	for (let i = 0; i < tableBody.rows.length; i++) {
-		if (tableBody.rows[i].querySelector('input')) return;
+		if (tableBody.rows[i].querySelector('input:not([type="hidden"])')) return;
 	}
 	// if first row is no rec found, remove that row 
 	let norec = document.getElementById("emp");
@@ -45,17 +45,18 @@ function remove(btn) {
 	}
 }
 
-function modify(id, title, desc) {
+function modify(id, title, desc, page) {
 	let tableBody = document.getElementById("rec");
 	for (let i = 0; i < tableBody.rows.length; i++) {
-		if (tableBody.rows[i].querySelector('input')) {
+		if (tableBody.rows[i].querySelector('input:not([type="hidden"])')) {
 			return;
 		}
 	}
 
 	let ind = findID(id);
 	let row = tableBody.rows[ind];
-	row.cells[0].innerHTML = `<button id="ub" name="ub" type="submit" value="${id}">Submit</button>
+	row.cells[0].innerHTML = `<input type="hidden" name="page" value="${page}" />
+	<button id="ub" name="ub" type="submit" value="${id}">Submit</button>
 	<button id="un" type="button" onclick="undo('${id}', '${title}', '${desc}')">Cancel</button>`;
 	row.cells[2].innerHTML = `<input id="title" name="title" type="text" placeholder="Title" value="${title}" />`;
 	row.cells[3].innerHTML = `<input id="desc" name="desc" type="text" placeholder="Description" value="${desc}" />`;

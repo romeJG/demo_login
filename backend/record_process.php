@@ -46,9 +46,10 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && ((isset($_POST['cb'])) || (isset(
         $des = trim($_POST['desc']);
         $name = trim($_SESSION['name']);
         $recid = trim($_SESSION['user_id']);
+        $page = trim($_POST['page']);
         // if any of the field is empty, return to records page with query incomplete in field update
         if (empty($id) || empty($title) || empty($des) || empty($name) || empty($recid)) {
-            header('Location: ../pages/records.php?update=inc');
+            header('Location: ../pages/records.php?update=inc&page=' . $page);
             exit();
         }
         // prepare pdo to update specific row of database with sql query and provided id 
@@ -56,11 +57,11 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && ((isset($_POST['cb'])) || (isset(
         // check if title, description, recorder username, and id were injected in the sql query 
         if ($stmt->execute([$title, $des, $name, $recid, $id])) {
             // successful update and return to records page with query success in field update
-            header('Location: ../pages/records.php?update=success');
+            header('Location: ../pages/records.php?update=success&page=' . $page);
             exit();
         } else {
             // failed update and return to records page with query failed in field update
-            header('Location: ../pages/records.php?update=failed');
+            header('Location: ../pages/records.php?update=failed&page=' . $page);
             exit();
         }
     }
@@ -69,9 +70,12 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && ((isset($_POST['cb'])) || (isset(
         // id of the row being deleted is taken from the value of the specific button pressed 
         // value of id is trimmed as well
         $id = trim($_POST['db']);
+        $start = (int) trim($_POST['start']);
+        $records = (int) trim($_POST['records']);
+        $page = trim($_POST['page']);
         // if field is empty, return to records page with query incomplete in field delete
         if (empty($id)) {
-            header('Location: ../pages/records.php?delete=inc');
+            header('Location: ../pages/records.php?delete=inc&page=' . $page);
             exit();
         }
         // gets the current data of that row 
@@ -92,22 +96,25 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && ((isset($_POST['cb'])) || (isset(
                 $stmt = $pdo->prepare('DELETE FROM records WHERE id = ?');
                 // check if sql query is successfully executed
                 if ($stmt->execute([$id])) {
+                    if ($start == ($records - 1)) {
+                        $page = $page - 1;
+                    }
                     // successful delete and return to records page with query success in field delete 
-                    header('Location: ../pages/records.php?delete=success');
+                    header('Location: ../pages/records.php?delete=success&page=' . $page);
                     exit();
                 } else {
                     // failed delete and return to records page with query failed in field delete 
-                    header('Location: ../pages/records.php?delete=failed');
+                    header('Location: ../pages/records.php?delete=failed&page=' . $page);
                     exit();
                 }
             } else {
                 // failed adding new data and return to records page with query failed in field delete 
-                header('Location: ../pages/records.php?delete=failed');
+                header('Location: ../pages/records.php?delete=failed&page=' . $page);
                 exit();
             }
         } else {
             // id does not exists and return to records page with query failed in field delete 
-            header('Location: ../pages/records.php?delete=failed');
+            header('Location: ../pages/records.php?delete=failed&page=' . $page);
             exit();
         }
     }
