@@ -32,7 +32,7 @@ echo "<thead> <tr>
         <th>Name</th>
         <th>Recorder ID</th>
         <th>Time</th>
-      </thead> </tr> <tbody>";
+      </tr> </thead> <tbody>";
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {

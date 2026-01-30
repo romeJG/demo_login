@@ -8,7 +8,19 @@ $dbname = "login_demo";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-$sql = "SELECT id, prev_id, record_title, descriptions, recorder_name, recorder_id, created_at, deleted_at FROM deleted";
+$perpage = 3;
+if (isset($_GET['page']) && is_numeric($_GET['page'])) {
+    $current_page = (int) $_GET['page'];
+} else {
+    $current_page = 1;
+}
+$start = ($current_page - 1) * $perpage;
+$sql = "SELECT COUNT(*) FROM deleted";
+$results = $conn->query($sql);
+$total_records = mysqli_fetch_array($results)[0];
+$total_pages = ceil($total_records / $perpage);
+
+$sql = "SELECT id, prev_id, record_title, descriptions, recorder_name, recorder_id, created_at, deleted_at FROM deleted LIMIT $start, $perpage";
 $result = $conn->query($sql);
 
 echo "<table border='1' cellpadding='10' id='inputTable'>";
@@ -22,7 +34,7 @@ echo "<thead> <tr>
         <th>Recorder ID</th>
         <th>Time Created</th>
         <th>Time Deleted</th>
-      </thead> </tr> <tbody>";
+      </tr> </thead> <tbody>";
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {

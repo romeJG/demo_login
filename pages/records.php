@@ -7,12 +7,6 @@ $pageTitle = "Records";
 require '../components/header.php';
 require "../db/db_con.php";
 ?>
-<style>
-    td {
-        text-align: center;
-        vertical-align: middle;
-    }
-</style>
 
 <body>
     <div class="flex-wrapper">
@@ -40,47 +34,44 @@ require "../db/db_con.php";
                     </button>
                 </div>
                 <div class="col">
-                    <div id="c0">
+                    <ul class="pagination">
                         <?php
                         if ($current_page > 1) {
                             // start 
-                            echo '<a href="records.php?page=1">1 ... </a>';
-
+                            echo '<li> <a href="records.php?page=1">1 ... </a> </li>';
                         }
                         if ($current_page > 2) {
                             // prev 
-                            echo '<a href="records.php?page=';
+                            echo '<li> <a href="records.php?page=';
                             $prev = $current_page - 1;
                             echo "$prev";
                             echo '">';
                             echo "&laquo; $prev ";
-                            echo '</a>';
+                            echo '</a> </li>';
                         }
                         // current 
-                        echo '<a href="records.php?page=';
-                        echo "$current_page";
-                        echo '">';
+                        echo '<li> <a class="active" href="#">';
                         echo "$current_page ";
-                        echo '</a>';
+                        echo '</a> </li>';
                         if ($current_page < $total_pages - 1) {
                             // next 
-                            echo '<a href="records.php?page=';
+                            echo '<li> <a href="records.php?page=';
                             $next = $current_page + 1;
                             echo "$next";
                             echo '">';
                             echo "$next &raquo; ";
-                            echo '</a>';
+                            echo '</a> </li>';
                         }
                         if ($current_page < $total_pages) {
                             // end 
-                            echo '<a href="records.php?page=';
+                            echo '<li> <a href="records.php?page=';
                             echo "$total_pages";
                             echo '"> ... ';
                             echo "$total_pages ";
-                            echo '</a>';
+                            echo '</a> </li>';
                         }
                         ?>
-                    </div>
+                    </ul>
                 </div>
             </div>
         </form>

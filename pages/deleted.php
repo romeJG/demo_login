@@ -32,6 +32,51 @@ require "../db/db_con.php" ?>
                     <?php include '../components/deleted_table.php' ?>
                 </div>
             </div>
+            <div class="row">
+                <div class="col">
+
+                </div>
+                <div class="col">
+                    <ul class="pagination">
+                        <?php
+                        if ($current_page > 1) {
+                            // start 
+                            echo '<li> <a href="deleted.php?page=1">1 ... </a> </li>';
+                        }
+                        if ($current_page > 2) {
+                            // prev 
+                            echo '<li> <a href="deleted.php?page=';
+                            $prev = $current_page - 1;
+                            echo "$prev";
+                            echo '">';
+                            echo "&laquo; $prev ";
+                            echo '</a> </li>';
+                        }
+                        // current 
+                        echo '<li> <a class="active" href="#">';
+                        echo "$current_page ";
+                        echo '</a> </li>';
+                        if ($current_page < $total_pages - 1) {
+                            // next 
+                            echo '<li> <a href="deleted.php?page=';
+                            $next = $current_page + 1;
+                            echo "$next";
+                            echo '">';
+                            echo "$next &raquo; ";
+                            echo '</a> </li>';
+                        }
+                        if ($current_page < $total_pages) {
+                            // end 
+                            echo '<li> <a href="deleted.php?page=';
+                            echo "$total_pages";
+                            echo '"> ... ';
+                            echo "$total_pages ";
+                            echo '</a> </li>';
+                        }
+                        ?>
+                    </ul>
+                </div>
+            </div>
         </form>
     </div>
     <script src="../script/records.js"> </script>
