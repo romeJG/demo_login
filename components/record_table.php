@@ -8,7 +8,7 @@ $dbname = "login_demo";
 
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-$sql = "SELECT id, record_title, descriptions, recorder_name, created_at FROM records";
+$sql = "SELECT id, record_title, descriptions, recorder_name, recorder_id, created_at FROM records";
 $result = $conn->query($sql);
 
 echo "<table border='1' cellpadding='10' id='rec'>";
