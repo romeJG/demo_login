@@ -100,3 +100,8 @@ window.addEventListener("load", function () {
 		add(pg);
 	}
 });
+
+function changeRowsPerPage(val) {
+	// Redirect to page 1 of the new per-page view
+	window.location.href = "records.php?page=1&perpage=" + val;
+}

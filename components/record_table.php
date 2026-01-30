@@ -3,7 +3,9 @@
 require '../components/verify_sesstion.php';
 require "../db/db_tab.php";
 
-$perpage = 5;
+$perpage = (isset($_GET['perpage']) && is_numeric($_GET['perpage']))
+    ? (int) $_GET['perpage']
+    : 5;
 if (isset($_GET['page']) && is_numeric($_GET['page'])) {
     $current_page = (int) $_GET['page'];
 } else {

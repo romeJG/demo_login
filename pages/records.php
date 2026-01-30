@@ -41,26 +41,21 @@ require "../db/db_con.php";
                 <div class="col">
                     <ul class="pagination">
                         <?php
-                        if ($current_page > 1) {
-                            // start 
-                            echo '<li> <a href="records.php?page=1">1</a> </li>';
-                        }
-                        if ($current_page > 2) {
-                            // prev 
-                            $prev = $current_page - 1;
-                            echo "<li> <a href='records.php?page=$prev'>&laquo;</a> </li>";
-                        }
-                        // current 
-                        echo "<li> <a class='active' href='#'>$current_page</a> </li>";
-                        if ($current_page < $total_pages - 1) {
-                            // next 
-                            $next = $current_page + 1;
-                            echo "<li> <a href='records.php?page=$next'>&raquo;</a> </li>";
-                        }
-                        if ($current_page < $total_pages) {
-                            // end 
-                            echo "<li><a href='records.php?page=$total_pages'>$total_pages</a></li>";
-                        }
+                        $firstDisabled = ($current_page <= 1) ? 'disabled' : '';
+                        echo "<li><a class='$firstDisabled' href='records.php?page=1'>1</a></li>";
+
+                        $prevDisabled = ($current_page <= 1) ? 'disabled' : '';
+                        $prevPage = ($current_page > 1) ? $current_page - 1 : 1;
+                        echo "<li><a class='$prevDisabled' href='records.php?page=$prevPage'>&laquo;</a></li>";
+
+                        echo "<li><a class='active' href='#'>$current_page</a></li>";
+
+                        $nextDisabled = ($current_page >= $total_pages) ? 'disabled' : '';
+                        $nextPage = ($current_page < $total_pages) ? $current_page + 1 : $total_pages;
+                        echo "<li><a class='$nextDisabled' href='records.php?page=$nextPage'>&raquo;</a></li>";
+
+                        $lastDisabled = ($current_page >= $total_pages) ? 'disabled' : '';
+                        echo "<li><a class='$lastDisabled' href='records.php?page=$total_pages'>$total_pages</a></li>";
                         ?>
                     </ul>
                 </div>
