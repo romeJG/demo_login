@@ -12,9 +12,12 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && (isset($_POST['rb']))) {
     // id of the row being restored is taken from the value of the specific button pressed 
     // value of id is trimmed as well
     $id = trim($_POST['rb']);
+    $start = (int) trim($_POST['start']);
+    $records = (int) trim($_POST['records']);
+    $page = trim($_POST['page']);
     // if field is empty, return to deleted page with query incomplete in field restore
     if (empty($id)) {
-        header('Location: ../pages/deleted.php?restore=inc');
+        header('Location: ../pages/deleted.php?restore=inc&page=' . $page);
         exit();
     }
     // gets the current data of that row 
@@ -36,22 +39,25 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && (isset($_POST['rb']))) {
             $stmt = $pdo->prepare('DELETE FROM deleted WHERE id = ?');
             // check if sql query is successfully executed
             if ($stmt->execute([$id])) {
+                if ($start == ($records - 1)) {
+                    $page = $page - 1;
+                }
                 // successful delete and return to deleted page with query success in field delete 
-                header('Location: ../pages/deleted.php?restore=success');
+                header('Location: ../pages/deleted.php?restore=success&page=' . $page);
                 exit();
             } else {
                 // failed delete and return to deleted page with query failed in field delete 
-                header('Location: ../pages/deleted.php?restore=failed');
+                header('Location: ../pages/deleted.php?restore=failed&page=' . $page);
                 exit();
             }
         } else {
             // failed adding new data and return to deleted page with query failed in field delete 
-            header('Location: ../pages/deleted.php?restore=failed');
+            header('Location: ../pages/deleted.php?restore=failed&page=' . $page);
             exit();
         }
     } else {
         // id does not exists and return to deleted page with query failed in field delete 
-        header('Location: ../pages/deleted.php?restore=failed');
+        header('Location: ../pages/deleted.php?restore=failed&page=' . $page);
         exit();
     }
 

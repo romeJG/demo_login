@@ -27,7 +27,7 @@ $start = ($current_page - 1) * $perpage;
 $sql = "SELECT id, prev_id, record_title, descriptions, recorder_name, recorder_id, created_at, deleted_at FROM deleted LIMIT $start, $perpage";
 $result = $conn->query($sql);
 
-echo "<table border='1' cellpadding='10' id='inputTable'>";
+echo "<table border='1' cellpadding='10'>";
 echo "<thead> <tr>
         <th>Button</th>
         <th>ID</th>
@@ -43,7 +43,9 @@ echo "<thead> <tr>
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "<tr>";
-        echo "<td> 
+        echo "<td> <input type=\"hidden\" name=\"start\" value=\"$start\" />   
+        <input type=\"hidden\" name=\"records\" value=\"$total_records\" />
+        <input type=\"hidden\" name=\"page\" value=\"$current_page\" />
         <button id=\"rb\" name=\"rb\" class=\"lit\" type=\"submit\" 
         value=\"{$row['id']}\"> Restore </button>
         </td>";
