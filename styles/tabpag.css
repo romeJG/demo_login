@@ -11,8 +11,12 @@ td {
 }
 
 .pagination li a {
-    display: block;
-    padding: 8px 12px;
+    display: flex;
+    padding: 8px 0px;
+    min-width: 40px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
     text-decoration: none;
     border: 1px solid gray;
     color: black;
@@ -28,4 +32,10 @@ td {
 
 .pagination li a:hover:not(.active) {
     background-color: lightgray;
+}
+
+.pagination li a.disabled {
+    color: #dddddd;
+    cursor: not-allowed;
+    pointer-events: none;
 }

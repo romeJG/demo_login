@@ -43,37 +43,23 @@ require "../db/db_con.php";
                         <?php
                         if ($current_page > 1) {
                             // start 
-                            echo '<li> <a href="records.php?page=1">1 ... </a> </li>';
+                            echo '<li> <a href="records.php?page=1">1</a> </li>';
                         }
                         if ($current_page > 2) {
                             // prev 
-                            echo '<li> <a href="records.php?page=';
                             $prev = $current_page - 1;
-                            echo "$prev";
-                            echo '">';
-                            echo "&laquo; $prev ";
-                            echo '</a> </li>';
+                            echo "<li> <a href='records.php?page=$prev'>&laquo;</a> </li>";
                         }
                         // current 
-                        echo '<li> <a class="active" href="#">';
-                        echo "$current_page ";
-                        echo '</a> </li>';
+                        echo "<li> <a class='active' href='#'>$current_page</a> </li>";
                         if ($current_page < $total_pages - 1) {
                             // next 
-                            echo '<li> <a href="records.php?page=';
                             $next = $current_page + 1;
-                            echo "$next";
-                            echo '">';
-                            echo "$next &raquo; ";
-                            echo '</a> </li>';
+                            echo "<li> <a href='records.php?page=$next'>&raquo;</a> </li>";
                         }
                         if ($current_page < $total_pages) {
                             // end 
-                            echo '<li> <a href="records.php?page=';
-                            echo "$total_pages";
-                            echo '"> ... ';
-                            echo "$total_pages ";
-                            echo '</a> </li>';
+                            echo "<li><a href='records.php?page=$total_pages'>$total_pages</a></li>";
                         }
                         ?>
                     </ul>

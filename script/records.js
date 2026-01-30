@@ -85,7 +85,6 @@ function findID(id) {
 	let rows = table.rows;
 
 	for (let i = 1; i < rows.length; i++) {
-		// Access the second cell specifically
 		let ind = rows[i].cells[1];
 		if (ind && ind.textContent.trim() === id) {
 			return i;
@@ -95,29 +94,9 @@ function findID(id) {
 }
 
 window.addEventListener("load", function () {
-	// Code to run after the entire page is fully loaded
 	const urlParams = new URLSearchParams(window.location.search);
 	if (urlParams.get('action') === 'add') {
 		pg = urlParams.get('pg')
-		add(pg); // This triggers your existing function automatically
+		add(pg);
 	}
 });
-
-/* option 2 to use response form fetch 
-function create() {
-	fetch('../components/create-form.php')
-		.then(response => response.text())
-		.then(html => {
-			document.getElementById("c0").innerHTML = html;
-		});
-}
-
-function update(id, tt, desc) {
-	fetch('../components/update-form.php?update=' + id + '&title=' + tt + '&desc=' + desc)
-		.then(response => response.text())
-		.then(html => {
-			document.getElementById("c0").innerHTML = html;
-		});
-}
-
-*/
