@@ -39,40 +39,21 @@ require "../db/db_con.php" ?>
                 <div class="col">
                     <ul class="pagination">
                         <?php
-                        if ($current_page > 1) {
-                            // start 
-                            echo '<li> <a href="deleted.php?page=1">1 ... </a> </li>';
-                        }
-                        if ($current_page > 2) {
-                            // prev 
-                            echo '<li> <a href="deleted.php?page=';
-                            $prev = $current_page - 1;
-                            echo "$prev";
-                            echo '">';
-                            echo "&laquo; $prev ";
-                            echo '</a> </li>';
-                        }
-                        // current 
-                        echo '<li> <a class="active" href="#">';
-                        echo "$current_page ";
-                        echo '</a> </li>';
-                        if ($current_page < $total_pages - 1) {
-                            // next 
-                            echo '<li> <a href="deleted.php?page=';
-                            $next = $current_page + 1;
-                            echo "$next";
-                            echo '">';
-                            echo "$next &raquo; ";
-                            echo '</a> </li>';
-                        }
-                        if ($current_page < $total_pages) {
-                            // end 
-                            echo '<li> <a href="deleted.php?page=';
-                            echo "$total_pages";
-                            echo '"> ... ';
-                            echo "$total_pages ";
-                            echo '</a> </li>';
-                        }
+                        $firstDisabled = ($current_page <= 1) ? 'disabled' : '';
+                        echo "<li><a class='$firstDisabled' href='deleted.php?page=1'>1</a></li>";
+
+                        $prevDisabled = ($current_page <= 1) ? 'disabled' : '';
+                        $prevPage = ($current_page > 1) ? $current_page - 1 : 1;
+                        echo "<li><a class='$prevDisabled' href='deleted.php?page=$prevPage'>&laquo;</a></li>";
+
+                        echo "<li><a class='active' href='#'>$current_page</a></li>";
+
+                        $nextDisabled = ($current_page >= $total_pages) ? 'disabled' : '';
+                        $nextPage = ($current_page < $total_pages) ? $current_page + 1 : $total_pages;
+                        echo "<li><a class='$nextDisabled' href='deleted.php?page=$nextPage'>&raquo;</a></li>";
+
+                        $lastDisabled = ($current_page >= $total_pages) ? 'disabled' : '';
+                        echo "<li><a class='$lastDisabled' href='deleted.php?page=$total_pages'>$total_pages</a></li>";
                         ?>
                     </ul>
                 </div>
