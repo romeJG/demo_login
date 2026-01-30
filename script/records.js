@@ -6,7 +6,9 @@ let title = '';
 let desc = '';
 let existbtn = 0;
 
-function add() {
+function add(pg) {
+	const urlParams = new URLSearchParams(window.location.search);
+	const currentPage = urlParams.get('page') || 1;
 	let tableBody = document.getElementById("rec");
 	for (let i = 0; i < tableBody.rows.length; i++) {
 		if (tableBody.rows[i].querySelector('input:not([type="hidden"])')) return;
@@ -27,7 +29,10 @@ function add() {
 	let cell4 = newRow.insertCell(4);
 	let cell5 = newRow.insertCell(5);
 
-	cell0.innerHTML = '<button id="cb" name="cb" type="submit">Submit</button> <button id="can" type="button" onclick="remove(this)">Cancel</button>';
+	cell0.innerHTML = `<input type="hidden" name="page" value="${currentPage}"> 
+	<button id="cb" name="cb" type="submit">Submit</button> 
+	<button id="can" type="button" onclick="window.location.href='records.php?page=${pg}'">
+	Cancel</button>`;
 	cell2.innerHTML = '<input id="title" name="title" type="text" placeholder="Title" />';
 	cell3.innerHTML = '<input id="desc" name="desc" type="text" placeholder="Description" />';
 }
@@ -88,3 +93,31 @@ function findID(id) {
 	}
 	return -1;
 }
+
+window.addEventListener("load", function () {
+	// Code to run after the entire page is fully loaded
+	const urlParams = new URLSearchParams(window.location.search);
+	if (urlParams.get('action') === 'add') {
+		pg = urlParams.get('pg')
+		add(pg); // This triggers your existing function automatically
+	}
+});
+
+/* option 2 to use response form fetch 
+function create() {
+	fetch('../components/create-form.php')
+		.then(response => response.text())
+		.then(html => {
+			document.getElementById("c0").innerHTML = html;
+		});
+}
+
+function update(id, tt, desc) {
+	fetch('../components/update-form.php?update=' + id + '&title=' + tt + '&desc=' + desc)
+		.then(response => response.text())
+		.then(html => {
+			document.getElementById("c0").innerHTML = html;
+		});
+}
+
+*/

@@ -29,9 +29,14 @@ require "../db/db_con.php";
             </div>
             <div class="row">
                 <div class="col">
-                    <button id="cb" name="cb" class="lit" type="button" onclick="add()">
-                        Create
-                    </button>
+                    <ul class="pagination">
+                        <li>
+                            <a
+                                href="records.php?page=<?php echo $total_pages; ?>&action=add&pg=<?php echo $current_page; ?>">
+                                Create
+                            </a>
+                        </li>
+                    </ul>
                 </div>
                 <div class="col">
                     <ul class="pagination">

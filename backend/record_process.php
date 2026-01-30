@@ -17,9 +17,10 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && ((isset($_POST['cb'])) || (isset(
         $des = trim($_POST['desc']);
         $name = trim($_SESSION['name']);
         $recid = trim($_SESSION['user_id']);
+        $page = trim($_POST['page']);
         // if at least one field is empty, return to records page with query incomplete in field create
         if (empty($title) || empty($des) || empty($name) || empty($recid)) {
-            header('Location: ../pages/records.php?create=inc');
+            header('Location: ../pages/records.php?create=inc&page=' . $page);
             exit();
         }
         // prepare pdo to insert into database with sql query 
@@ -27,11 +28,11 @@ if (($_SERVER['REQUEST_METHOD'] === 'POST') && ((isset($_POST['cb'])) || (isset(
         // check if title, description, and recorder username were inserted into database 
         if ($stmt->execute([$title, $des, $name, $recid])) {
             // successful insertion and return to records page with query success in field create
-            header('Location: ../pages/records.php?create=success');
+            header('Location: ../pages/records.php?create=success&page=' . $page);
             exit();
         } else {
             // failed insertion and return to records page with query failed in field create
-            header('Location: ../pages/records.php?create=failed');
+            header('Location: ../pages/records.php?create=failed&page=' . $page);
             exit();
         }
     }
